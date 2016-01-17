@@ -1,0 +1,35 @@
+    private void getRouteLatMove(boolean isSinual){
+        CoordParameters cp = new CoordParameters();
+
+        if(isSinual){
+
+        }else {
+            detailedRoute = formLinearRoute(cp, POLYLINE_POINTS);
+            undetailedRoute = formLinearRoute(cp, NUM_OF_ROUTE_POINTS);
+        }
+    }
+    private ArrayList<LatLng> formLinearRoute(CoordParameters cp, int num){
+
+        ArrayList<LatLng> route = new ArrayList<>();
+
+        double cLat = cp.startLat;
+        double cLng = cp.startLng;
+        double addLat = cp.getLatStep(num);
+        double addLng = cp.getLngStep(num);
+
+        for (int i = 0; i < num; i++){
+            route.add(new LatLng(cLat, cLng));
+            cLat += addLat;
+            cLng += addLng;
+        }
+        return route;
+    }
+
+    Marker theAirplane = gMap.addMarker(new MarkerOptions()
+                    .position(start)
+                    .title("The plane")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.airplane))
+                    .rotation(bearing)
+                    .anchor(0.5f, 0.5f)
+                    .flat(true)
+                    .draggable(true));
